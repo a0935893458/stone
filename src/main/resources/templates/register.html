@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>149 TAO 會員註冊</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" >
+</head>
+<body>
+
+    <div class="container" style="max-width:600px;margin-top: 50px">
+        <h3 class="page-header">149 TAO 會員註冊</h3>
+        <div class="well">
+            <form action="/register" th:object="${userForm}" method="post">
+                <div class="form-group">
+                    <label for="usernameId">帳號</label>
+                    <input type="text" name="username" id="usernameId" class="form-control" th:field="*{username}">
+                    <p class="form-control-static text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">帳號不能空白</p>
+                </div>
+                <div class="form-group">
+                    <label for="passwordId">密碼</label>
+                    <input type="password" name="password" id="passwordId" class="form-control" th:field="*{password}">
+                    <p class="form-control-static text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">密碼不能空白</p>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPasswordId">確認密碼</label>
+                    <input type="password" name="confirmPassword" id="confirmPasswordId" class="form-control" th:field="*{confirmPassword}">
+                    <p class="form-control-static text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">確認密碼不能空白</p>
+                </div>
+                <div class="form-group">
+                    <label for="nameId">名字</label>
+                    <input type="text" name="name" id="nameId" class="form-control" th:field="*{name}">
+                    <p class="form-control-static text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">名字不能空白</p>
+                </div>
+                <div class="form-group">
+                    <label for="phoneId">手機</label>
+                    <input type="text" name="phone" id="phoneId" class="form-control" th:field="*{phone}">
+                    <p class="form-control-static text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">手機不能空白</p>
+                </div>
+                <div class="form-group">
+                    <label for="emailId">信箱</label>
+                    <input type="text" name="email" id="emailId" class="form-control" th:field="*{email}">
+                    <p class="form-control-static text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">信箱不能空白</p>
+                </div>
+                <div class="form-group">
+                    <label for="sendId">寄件地址(EX.711-XX門市-門市號:XXXXXX | 全家-XX店-店號:XXXXXX)</label>
+                    <input type="text" name="send" id="sendId" class="form-control" th:field="*{send}">
+                    <p class="form-control-static text-danger" th:if="${#fields.hasErrors('send')}" th:errors="*{send}">寄件地址不能空白</p>
+                </div>
+                <p class="text-center">
+                    <button type="submit" class="btn btn-primary">提交註冊</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+<script src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

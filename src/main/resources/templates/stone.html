@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>礦礦詳情</title>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css" >
+</head>
+<body th:object="${stone}">
+
+<div class="container" style="max-width: 700px;" >
+
+    <h1 class="page-header" style="margin-top: 50px;">詳情</h1>
+    <div class="well">
+        <h4>
+            <strong>採購日：</strong><span th:text="${#dates.format(stone.buyDate,'yyyy-MM-dd')}"></span>
+        </h4>
+        <h4>
+            <strong>直播：</strong><span th:text="*{liveStreaming}"></span>
+        </h4>
+        <h4>
+            <strong>品種：</strong><span th:text="*{name}"></span>
+        </h4>
+        <h4>
+            <strong>產地：</strong><span th:text="*{origin}"></span>
+        </h4>
+        <h4>
+            <strong>人民幣價格：</strong><span th:text="*{chPrice}"></span>
+        </h4>
+        <h4>
+            <strong>台幣價格：</strong><span th:text="*{chPrice * 6}"></span>
+        </h4>
+        <h4>
+            <strong>到貨日：</strong><span th:text="${#dates.format(stone.comeDate,'yyyy-MM-dd')}"></span>
+        </h4>
+        <h4 th:switch="*{status}">
+            <strong>狀態：</strong>
+            <span th:case="0">採購未付</span>
+            <span th:case="1">採購已付</span>
+            <span th:case="2">已到貨</span>
+            <span th:case="3">貼文上架</span>
+            <span th:case="4">已售出</span>
+            <span th:case="5">扭蛋</span>
+            <span th:case="6">抽獎</span>
+            <span th:case="7">售友人</span>
+            <span th:case="8">自留</span>
+            <span th:case="*">狀態</span>
+        </h4>
+    </div>
+
+    <div class="alert alert-success" th:if="*{status == 1}">
+        <h4>礦礦已到家</h4>
+    </div>
+    <div class="alert alert-warning" th:if="*{status == 0}">
+        <h4>等待礦礦到來</h4>
+    </div>
+    <div class="alert alert-danger" th:if="*{status == 2}">
+        <h4>礦礦已賣出</h4>
+    </div>
+
+    <a href="javascript:history.go(-1)" class="btn btn-default">返回</a>
+</div>
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

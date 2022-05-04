@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>149 TAO 礦礦專區</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+          href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h2 class="page-header">149 TAO 礦石表單</h2>
+
+    <div class="alert alert-success alert-dismissable fade in"  th:unless="${#strings.isEmpty(message)}">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Hi，</strong>
+        <span th:text="${message}"></span>
+    </div>
+
+    <p class="text-right">
+
+    <a href="./listSell.html" th:href="@{/listSold}" class="btn btn-primary">寄件區</a>
+    <a href="./listSell.html" th:href="@{/listSell}" class="btn btn-primary">上架區</a>
+    <a href="./input.html" th:href="@{/stones/input}" class="btn btn-primary">新增</a> </p>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+<!--            <th>號碼</th>-->
+            <th>礦礦編號</th>
+            <th>採購日</th>
+            <th>直播</th>
+            <th>品種</th>
+            <th>產地</th>
+            <th>人民幣價格</th>
+            <th>台幣價格</th>
+            <th>到貨日</th>
+            <th>狀態</th>
+            <th>編輯</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        iterStat:
+            count: 计数 从1开始
+            index: 索引 从0开始
+            size:  列表总条数
+            even/odd: 偶数／奇数
+            first/last: 第一条／最后一条
+
+        -->
+        <tr th:each="stone,iterStat:${page.content}">
+<!--            <td th:text="${iterStat.count}">1</td>-->
+            <td th:text="${stone.stoneId}">礦礦編號</td>
+            <td th:text="${#dates.format(stone.buyDate,'yyyy-MM-dd')}">採購日</td>
+            <td th:text="${stone.liveStreaming}">直播</td>
+            <!--<td ><a href="#" th:text="${book.name}" th:href="@{/books/{id}(id=${book.id})}">书名</a></td>-->
+            <td><a href="#" th:text="${stone.name}" th:href="@{'/stones/' + ${stone.id}}">品種</a></td>
+            <td th:text="${stone.origin}">產地</td>
+            <td th:text="${stone.chPrice}">人民幣價格</td>
+            <td th:text="${stone.chPrice * 6}">台幣價格</td>
+            <td th:text="${#dates.format(stone.comeDate,'yyyy-MM-dd')}">到貨日</td>
+            <td th:switch="${stone.status}">
+                <span th:case="0">採購未付</span>
+                <span th:case="1">採購已付</span>
+                <span th:case="2">已到貨</span>
+                <span th:case="3">貼文上架</span>
+                <span th:case="4">已售出</span>
+                <span th:case="5">扭蛋</span>
+                <span th:case="6">抽獎</span>
+                <span th:case="7">售友人</span>
+                <span th:case="8">自留</span>
+                <span th:case="*">狀態</span>
+            </td>
+            <td>
+
+                <!--                    <a herf="#" th:href="@{/stones/{id}/stoneEdit(id=${stone.id})}">更新</a>-->
+                <!--                    <a herf="#" th:href="@{/stones/{id}/delete(id=${stone.id})}">刪除</a>-->
+                <!--                    <a herf="#" th:href="@{/stones/{id}/editSellStone(id=${stone.id})}">上架</a>-->
+
+                <!-- Button trigger modal -->
+                <br>
+                <button type="button" class="btn btn-success btn btn-success btn-sm mt-2" data-toggle="modal"
+                        th:attr="data-target='#exampleModalCenter' + *{stone.id}">
+                    編輯
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" th:id="*{'exampleModalCenter' + {stone.id}}" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">更新</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/changeStone" method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" th:value="${stone.id}" name="id">
+                                        <label>礦礦編號</label>
+                                        <input type="text" th:value="*{stone.stoneId}" class="form-control"
+                                               name="stoneId">
+                                        <label>採購日</label>
+                                        <input type="text" th:value="*{#dates.format(stone.buyDate,'yyyy-MM-dd')}"
+                                               class="form-control" name="buyDate">
+                                        <label>直播</label>
+                                        <input type="text" th:value="*{stone.liveStreaming}" class="form-control"
+                                               name="liveStreaming">
+                                        <label>礦種</label>
+                                        <input type="text" th:value="*{stone.name}" class="form-control" name="name">
+                                        <label>產地</label>
+                                        <input type="text" th:value="*{stone.origin}" class="form-control"
+                                               name="origin">
+                                        <label>人民幣價格</label>
+                                        <input type="text" th:value="*{stone.chPrice}" class="form-control"
+                                               name="chPrice">
+                                        <label>到貨日</label>
+                                        <input type="text" th:value="*{#dates.format(stone.comeDate,'yyyy-MM-dd')}"
+                                               class="form-control" name="comeDate">
+                                        <label>狀態</label>
+                                        <!--                                            <input type="switch" th:value="*{stone.status}" class="form-control" name="status">-->
+                                        <select th:value="*{stone.status}" name="status" class="form-control">
+                                            <option value="0" th:selected="(*{status} == '0')">採購未付</option>
+                                            <option value="1" th:selected="(*{status} == '1')">採購已付</option>
+                                            <option value="2" th:selected="(*{status} == '2')">已到貨</option>
+                                            <option value="3" th:selected="(*{status} == '3')">貼文上架</option>
+                                            <option value="4" th:selected="(*{status} == '4')">已售出</option>
+                                            <option value="5" th:selected="(*{status} == '5')">扭蛋</option>
+                                            <option value="6" th:selected="(*{status} == '6')">抽獎</option>
+                                            <option value="7" th:selected="(*{status} == '7')">售友人</option>
+                                            <option value="8" th:selected="(*{status} == '8')">自留</option>
+                                            <option value="*" th:selected="(*{status} == '*')">狀態</option>
+                                        </select>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">更改</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="#" th:href="@{'/stones?page=' +  ${page.number-1}}" th:unless="${page.first}">上一頁</a>
+            </li>
+            <li class="next"><a href="#" th:href="@{/stones(page = ${page.number} +1)}" th:unless="${page.last}">下一頁</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"
+        src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/bootstrap.min.js"></script>
+</body>
+</html>

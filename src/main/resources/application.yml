@@ -1,0 +1,23 @@
+logging:
+  level:
+    com.lrm: debug
+    root: info
+  file:
+    name: logs/debug.log
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Vacr2113!
+    url: "jdbc:mysql://localhost:3306/stoneuser?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+  thymeleaf:
+    mode: HTML
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB

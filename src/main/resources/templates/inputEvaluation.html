@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:>
+<head>
+    <title>新增評論</title>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css" >
+</head>
+<body>
+
+<div class="container" style="max-width: 700px;margin-top: 50px;">
+    <div class="well">
+        <form action="#" th:action="@{/inputEvaluation}"  method="post" enctype="multipart/form-data">
+<!--            <input type="hidden" th:value="${evaluation.id}" name="id">-->
+            <div class="form-group">
+                <label for="starsId" class="col-form-label">星數:</label>
+                <input type="text" class="form-control" name="stars" id="starsId"  >
+            </div>
+            <div class="form-group">
+                <label for="commentId" class="col-form-label">評論:</label>
+                <input type="text" class="form-control" name="comment" id="commentId"  >
+            </div>
+            <div class="custom-file mb-2">
+                <input type="file" name="file" class="custom-form-input" id="fileId" >
+                <label for="fileId" class="custom-file-label">選擇照片:</label>
+            </div>
+            <div class="form-group">
+                <label for="evaluationDateId" class="col-form-label">評論日期:</label>
+                <input type="text" name="evaluationDate" class="form-control" id="evaluationDateId" th:value="${#dates.format(new java.util.Date().getTime(),'yyyy-MM-dd')}">
+            </div>
+            <p class="text-center">
+                <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </p>
+        </form>
+
+    </div>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/bootstrap.min.js"></script>
+
+</body>
+</html>

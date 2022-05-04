@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>149 TAO 會員登入</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" >
+</head>
+<body>
+
+    <div class="container" style="max-width:600px;margin-top:50px">
+        <h3 class="page-header">149 TAO 會員登入</h3>
+        <div class="well">
+            <form action="/login"  method="post">
+                <div class="form-group">
+                    <label for="usernameId">帳號</label>
+                    <input type="text" name="username" id="usernameId" class="form-control">                </div>
+                <div class="form-group">
+                    <label for="passwordId">密碼</label>
+                    <input type="password" name="password" id="passwordId" class="form-control">
+                </div>
+
+                <p class="text-center">
+                <a href="./register.html" th:href="@{/register}" class="btn btn-primary">註 冊</a>
+                <button type="submit" class="btn btn-primary">登 入</button>
+                </p>
+
+
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+<script src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

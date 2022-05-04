@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>149 TAO 評論專區</title>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css" >
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="page-header" >149 TAO 評論專區</h2>
+        <p class="text-right"><a href="./inputEvaluation.html" th:href="@{/listEvaluation/inputEva}" class="btn btn-primary">新增</a> </p>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>號碼</th>
+<!--                <th>暱稱</th>-->
+                <th>星數</th>
+                <th>評論</th>
+                <th>照片</th>
+                <th>評論日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--
+            iterStat:
+                count: 计数 从1开始
+                index: 索引 从0开始
+                size:  列表总条数
+                even/odd: 偶数／奇数
+                first/last: 第一条／最后一条
+
+            -->
+            <tr th:each="evaluation,iterStat:${page.content}" >
+                <td th:text="${iterStat.count}">1</td>
+                <!--<td ><a href="#" th:text="${book.name}" th:href="@{/books/{id}(id=${book.id})}">书名</a></td>-->
+<!--                <td ><a href="#" th:text="${evaluation.name}" th:href="@{'/stones/' + ${stone.id}}">暱稱</a></td>-->
+                <td th:text="${evaluation.stars}" >星數</td>
+                <td th:text="${evaluation.comment}">評論</td>
+                <th scope="row" ><img alrt=""  th:src="${'data:image/jpeg;base64,' + {evaluation.image}}" style="width: 100px;height: 100px"> </th>
+                <td th:text="${#dates.format(evaluation.evaluationDate,'yyyy-MM-dd')}">評論日期</td>
+<!--                <td>-->
+
+<!--                    <a herf="#" th:href="@{/stones/{id}/input(id=${stone.id})}">更新</a>-->
+<!--                    <a herf="#" th:href="@{/stones/{id}/delete(id=${stone.id})}">刪除</a>-->
+<!--                </td>-->
+
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a href="#" th:href="@{'/listEvaluation?page=' +  ${page.number-1}}" th:unless="${page.first}">上一頁</a> </li>
+                <li class="next"><a href="#" th:href="@{/listEvaluation(page = ${page.number} +1)}" th:unless="${page.last}">下一頁</a> </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}" src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/bootstrap.min.js"></script>
+</body>
+</html>

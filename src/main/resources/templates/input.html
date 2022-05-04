@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:>
+<head>
+    <title>新增礦礦</title>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css" >
+</head>
+<body>
+
+    <div class="container" style="max-width: 700px;margin-top: 50px;">
+       <div class="well">
+           <form action="#" th:action="@{/stones}"  method="post" >
+<!--               <input type="hidden" th:value="${stone.stone_sell_id}" name="stone_sell_id">-->
+               <div class="form-group">
+                   <label for="stoneIdId" class="col-form-label">礦礦編號：</label>
+                   <input type="text" name="stoneId" class="form-control" id="stoneIdId" th:value="${stone.stoneId}">
+               </div>
+               <div class="form-group">
+                   <label for="buyDateId" class="col-form-label">採購日：</label>
+                   <input type="text" name="buyDate" class="form-control" id="buyDateId" th:value="${#dates.format(stone.buyDate,'yyyy-MM-dd')}">
+               </div>
+               <div class="form-group">
+                   <label for="liveStreamingId" class="col-form-label">直播:</label>
+                   <input type="text" class="form-control" name="liveStreaming" id="liveStreamingId" th:value="${stone.liveStreaming}" >
+               </div>
+               <div class="form-group">
+                   <label for="nameId" class="col-form-label">品種:</label>
+                   <input type="text" name="name" class="form-control" id="nameId" th:value="${stone.name}">
+               </div>
+               <div class="form-group">
+                   <label for="originId" class="col-form-label">產地:</label>
+                   <input type="text" name="origin" class="form-control" id="originId" th:value="${stone.origin}">
+               </div>
+               <div class="form-group">
+                   <label for="chPriceId" class="col-form-label">人民幣價格:</label>
+                   <input type="text" name="chPrice" class="form-control" id="chPriceId" th:value="${stone.chPrice}">
+               </div>
+<!--               <input type="hidden" th:value="${stone.ntdPrice}=${stone.chPrice *6}" name="ntdPrice">-->
+               <div class="form-group">
+                   <label for="comeDateId" class="col-form-label">到貨日:</label>
+                   <input type="text" name="comeDate" class="form-control" id="comeDateId" th:value="${#dates.format(stone.comeDate,'yyyy-MM-dd')}">
+               </div>
+               <div class="form-group">
+                   <label for="statusId" class="col-form-label">狀態:</label>
+                   <select name="status" id="statusId" class="form-control">
+                       <option value="0" th:selected="(*{status} == '0')">採購未付</option>
+                       <option value="1" th:selected="(*{status} == '1')">採購已付</option>
+                       <option value="2" th:selected="(*{status} == '2')">已到貨</option>
+                       <option value="3" th:selected="(*{status} == '3')">貼文上架</option>
+                       <option value="4" th:selected="(*{status} == '4')">已售出</option>
+                       <option value="5" th:selected="(*{status} == '5')">扭蛋</option>
+                       <option value="6" th:selected="(*{status} == '6')">抽獎</option>
+                       <option value="7" th:selected="(*{status} == '7')">售友人</option>
+                       <option value="8" th:selected="(*{status} == '8')">自留</option>
+                   </select>
+               </div>
+               <p class="text-center">
+                   <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>
+                   <button type="submit" class="btn btn-primary">提交</button>
+               </p>
+           </form>
+
+       </div>
+    </div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../../../../../../149tao/149tao/stone/src/main/resources/static/js/bootstrap.min.js"></script>
+
+</body>
+</html>
