@@ -13,11 +13,14 @@ public interface CartService {
     Cart findCart(Long id);
 
     List<Cart> findCartByUid(Long uid);
+
     List<Cart> listAll();
 
+    void deleteCartById(long id);
+
+    Cart findCartBySidAndUid(Long sid,Long uid);
 
     void deleteCart(Sell sell,Long id,Long uid);
-
 
     Page<Cart> findAllByPage(Pageable pageable);
 

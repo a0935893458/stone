@@ -25,7 +25,42 @@ public class StoneServiceImpl implements StoneService {
 
     @Override
     public Stone saveStone(Stone stone){
-       return  stoneRepository.save(stone);
+        stone.setNtdPrice(stone.getChPrice()*6);
+        stone.setSell(new Sell());
+        Sell sell = stone.getSell();
+        sell.setStoneId(stone.getStoneId());
+        sell.setOrigin(stone.getOrigin());
+        sell.setName(stone.getName());
+        sell.setPrice(stone.getChPrice()*6);
+        sell.setStatus(stone.getStatus());
+
+        return  stoneRepository.save(stone);
+    }
+
+    @Override
+    public Stone postStone(Stone stone,Stone stone1){
+        stone.setNtdPrice(stone.getChPrice()*6);
+        Sell sell = stone1.getSell();
+        sell.setStoneId(stone.getStoneId());
+        sell.setOrigin(stone.getOrigin());
+        sell.setName(stone.getName());
+        sell.setPrice(stone.getChPrice()*6);
+        sell.setStatus(stone.getStatus());
+        stone.setSell(stone1.getSell());
+
+        return  stoneRepository.save(stone);
+    }
+
+    @Override
+    public Stone saveSellToStone(Stone stone,Sell sell){
+        stone.setName(sell.getName());
+        stone.setOrigin(sell.getOrigin());
+        stone.setNtdPrice(sell.getPrice());
+        stone.setChPrice(sell.getPrice()/6);
+        stone.setStatus(sell.getStatus());
+        stone.setStoneId(sell.getStoneId());
+
+        return  stoneRepository.save(stone);
     }
 
 

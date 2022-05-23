@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>首页</title>
+    <title>149 TAO 礦礦網</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../../../../149tao/149tao/stone/src/main/resources/static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" >
@@ -14,9 +14,7 @@
             <p th:text="${session.user.id}"></p>
             <p th:text="${session.user.username}"></p>
             <p><a href="#" th:href="@{/stones}">查看礦石表單</a></p>
-            <p><a href="#" th:href="@{/listSold}">查看買家寄件列表</a></p>
             <p><a href="#" th:href="@{/listEvaluation}">查看評論專區</a></p>
-            <p><a href="#" th:href="@{/finishCart/{id}/sold(id=${session.user.id})}">買家訂單區</a></p>
             <p><a href="#" th:href="@{/show}">礦礦區</a></p>
         </div>
         <a href="#" class="btn btn-warning" th:href="@{/logout}">登 出</a>

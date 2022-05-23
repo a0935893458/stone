@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>149 TAO 礦礦專區</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +13,7 @@
 <body>
 
 <div class="container">
-    <h2 class="page-header">149 TAO 礦石表單</h2>
+    <div style="text-align:center;"><h2 class="page-header">149 TAO 礦石表單</h2></div>
 
     <div class="alert alert-success alert-dismissable fade in"  th:unless="${#strings.isEmpty(message)}">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -22,13 +23,12 @@
 
     <p class="text-right">
 
-    <a href="./listSell.html" th:href="@{/listSold}" class="btn btn-primary">寄件區</a>
-    <a href="./listSell.html" th:href="@{/listSell}" class="btn btn-primary">上架區</a>
+    <a href="./listSell.html" th:href="@{/stones/listSold}" class="btn btn-primary">出貨區</a>
+    <a href="./listSell.html" th:href="@{/stones/listSell}" class="btn btn-primary">上架區</a>
     <a href="./input.html" th:href="@{/stones/input}" class="btn btn-primary">新增</a> </p>
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr>
-<!--            <th>號碼</th>-->
             <th>礦礦編號</th>
             <th>採購日</th>
             <th>直播</th>
@@ -42,21 +42,11 @@
         </tr>
         </thead>
         <tbody>
-        <!--
-        iterStat:
-            count: 计数 从1开始
-            index: 索引 从0开始
-            size:  列表总条数
-            even/odd: 偶数／奇数
-            first/last: 第一条／最后一条
 
-        -->
         <tr th:each="stone,iterStat:${page.content}">
-<!--            <td th:text="${iterStat.count}">1</td>-->
             <td th:text="${stone.stoneId}">礦礦編號</td>
             <td th:text="${#dates.format(stone.buyDate,'yyyy-MM-dd')}">採購日</td>
             <td th:text="${stone.liveStreaming}">直播</td>
-            <!--<td ><a href="#" th:text="${book.name}" th:href="@{/books/{id}(id=${book.id})}">书名</a></td>-->
             <td><a href="#" th:text="${stone.name}" th:href="@{'/stones/' + ${stone.id}}">品種</a></td>
             <td th:text="${stone.origin}">產地</td>
             <td th:text="${stone.chPrice}">人民幣價格</td>
@@ -76,13 +66,11 @@
             </td>
             <td>
 
-                <!--                    <a herf="#" th:href="@{/stones/{id}/stoneEdit(id=${stone.id})}">更新</a>-->
-                <!--                    <a herf="#" th:href="@{/stones/{id}/delete(id=${stone.id})}">刪除</a>-->
-                <!--                    <a herf="#" th:href="@{/stones/{id}/editSellStone(id=${stone.id})}">上架</a>-->
+
 
                 <!-- Button trigger modal -->
-                <br>
-                <button type="button" class="btn btn-success btn btn-success btn-sm mt-2" data-toggle="modal"
+
+                <button type="button" class="btn btn-link" data-toggle="modal"
                         th:attr="data-target='#exampleModalCenter' + *{stone.id}">
                     編輯
                 </button>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>149 TAO 買家寄件區</title>
+    <span th:if="${pagestatus} == 0" ><title>149 TAO 賣家出貨區</title></span>
+    <span th:if="${pagestatus} == 1" ><title>149 TAO 賣家寄件區</title></span>
     <meta charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +12,16 @@
 <body>
 
     <div class="container">
-        <h2 class="page-header" >149 TAO 上架區</h2>
+        <span th:if="${pagestatus} == 0" ><div style="text-align:center;"><h2 class="page-header" >149 TAO 賣家出貨區</h2></div></span>
+        <span th:if="${pagestatus} == 1" ><div style="text-align:center;"><h2 class="page-header" >149 TAO 賣家寄件區</h2></div></span>
+
+        <p class="text-right">
         <a href="./listSell.html" th:href="@{/stones}" class="btn btn-primary">礦石表單</a>
-<!--        <p class="text-right"><a href="./editSellStone.html" th:href="@{/stones/editSellStone}" class="btn btn-primary">新增</a> </p>-->
+            <span th:if="${pagestatus} == 0" ><a href="./listSell.html" th:href="@{/stones/listSold/Send}" class="btn btn-primary">寄件區</a></span>
+            <span th:if="${pagestatus} == 1" ><a href="./listSell.html" th:href="@{/stones/listSold}" class="btn btn-primary">出貨區</a></span></p>
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
-<!--                <th>號碼</th>-->
                 <th>礦礦編號</th>
                 <th>礦種</th>
                 <th>大小</th>
@@ -33,27 +37,13 @@
             </tr>
             </thead>
             <tbody>
-            <!--
-            iterStat:
-                count: 计数 从1开始
-                index: 索引 从0开始
-                size:  列表总条数
-                even/odd: 偶数／奇数
-                first/last: 第一条／最后一条
-
-            -->
             <tr th:each="sell,iterStat:${page.content}" >
-<!--                <td th:text="${iterStat.count}">1</td>-->
-                <!--<td ><a href="#" th:text="${book.name}" th:href="@{/books/{id}(id=${book.id})}">书名</a></td>-->
                 <td th:text="${sell.stoneId}"礦礦編號></td>
                 <td ><a href="#" th:text="${sell.name}" th:href="@{'/listSell/' + ${sell.id}}">礦種</a></td>
                 <td th:text="${sell.size}">大小</td>
                 <td th:text="${sell.price}">價格</td>
                 <th scope="row" ><img alrt=""  th:src="${'data:image/jpeg;base64,' + {sell.image}}" style="width: 50px;height: 50px"> </th>
                 <td th:switch="${sell.status}">
-                    <span th:case="0">採購未付</span>
-                    <span th:case="1">採購已付</span>
-                    <span th:case="2">已到貨</span>
                     <span th:case="3">貼文上架</span>
                     <span th:case="4">已售出</span>
                     <span th:case="5">扭蛋</span>

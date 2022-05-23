@@ -8,9 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CartController {
@@ -19,41 +18,36 @@ public class CartController {
     private CartServiceImpl cartService;
 
     @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
     private SellServiceImpl sellService;
 
     @Autowired
     private UserServiceImpl userService;
 
     @Autowired
-    private SellRepository sellRepository;
-
-    @Autowired
     private SoldServiceImpl soldService;
 
-    @Autowired
-    private SoldRepository soldRepository;
-
+    /**
+     * 查詢購物車，沒東西時提醒
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/show/{id}/myCart")
-    public String findCart(@PathVariable long id,Model model){
-        List<Cart> carts =cartRepository.findByUid(id);
+    public String findCart(@PathVariable long id,Model model,final RedirectAttributes attributes){
+        List<Cart> carts =cartService.findCartByUid(id);
         User user = userService.findOne(id);
 
-        model.addAttribute("carts",carts);
-        model.addAttribute("user",user);
+        if(carts.size() == 0){
+            attributes.addFlashAttribute("message","購物車沒有東西喔！");
+            return "redirect:/show";
+        }else {
+            model.addAttribute("carts",carts);
+            model.addAttribute("user",user);
+            return "myCart";
 
-        return "myCart";
+        }
     }
 
-//    @GetMapping("/show/myCart")
-//    public String viewCart(Model model){
-//        List<Cart> listCarts = cartService.listAll();
-//        model.addAttribute("listCarts",listCarts);
-//
-//        return "myCart";
-//    }
 
     /**
      * 加進購物車,用userPrice儲存購物車的價格
@@ -64,7 +58,7 @@ public class CartController {
     @GetMapping("/show/{sid}/{uid}/cart")
     public String includeCart(@PathVariable long sid, @PathVariable long uid, final RedirectAttributes attributes,
                               Model model) {
-        if(cartRepository.findCartBySidAndUid(sid,uid) != null){
+        if(cartService.findCartBySidAndUid(sid,uid) != null){
             attributes.addFlashAttribute("message","<"+(sellService.findOne(sid).getName()+"> 已在購物車喽！"));
             return "redirect:/show";
         }else {
@@ -96,10 +90,17 @@ public class CartController {
         return "redirect:/show/{uid}/myCart";
     }
 
+    /**
+     * 確認購物車及寄件位置
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/show/{id}/checkCart")
     public String checkCart(@PathVariable long id, Model model){
+
         User user=userService.findOne(id);
-        List<Cart> carts =cartRepository.findByUid(id);
+        List<Cart> carts =cartService.findCartByUid(id);
         model.addAttribute("carts",carts);
         model.addAttribute("user",user);
 
@@ -108,29 +109,27 @@ public class CartController {
 
     }
 
+    /**
+     * 將購物車裡的物件，逐一存進uid,訂單批數
+     * @param uid
+     * @param model
+     * @return
+     */
     @GetMapping("/finishCart/{uid}")
     public String finishCart(@PathVariable long uid,Model model){
-        if(cartService.findCartByUid(uid) != null) {
             User user = userService.findOne(uid);
-            Sold sold = soldService.saveSoldPrice(user);
-            List<Cart> carts = cartRepository.findByUid(uid);
+            Sold sold1 = soldService.saveSoldPrice(user);
+            List<Cart> carts = cartService.findCartByUid(uid);
             carts.forEach(Cart -> {
                 Sell sell = sellService.findOne(Cart.getSid());
-                sellService.saveUidToSell(sell, uid, sold.getSellGroup(),user);
-                cartRepository.deleteById(Cart.getId());
+                sellService.saveUidToSell(sell, sold1.getSellGroup(),user);
+                cartService.deleteCartById(Cart.getId());
             });
 
-        }
-//        if(sellRepository.findSellByUid(uid) != null) {
-
-            List<Sell> sells = sellRepository.findSellByUid(uid);
-            List<Sold> sold = soldRepository.findAllByUid(uid);
-            model.addAttribute("solds", sold);
+            List<Sell> sells = sellService.findSellByUid(uid);
+            List<Sold> sold = soldService.findAllByUid(uid);
+            model.addAttribute("sold", sold);
             model.addAttribute("sells", sells);
-
-//        }else{
-//            return "/show";
-//        }
 
 
         return "finishCart";

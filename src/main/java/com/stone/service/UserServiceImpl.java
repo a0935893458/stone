@@ -18,6 +18,22 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User checkCartUser(User user){return userRepository.save(user); }
+    public User checkCartUser(User user,User user1){
+        user1.setName(user.getName());
+        user1.setPhone(user.getPhone());
+        user1.setSend(user.getSend());
+
+        return userRepository.save(user);
+    }
+    @Override
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
+
+    @Override
+    public User findByUsernameAndPassword(String username,String password){
+        return userRepository.findByUsernameAndPassword(username,password);
+    }
+
 
 }

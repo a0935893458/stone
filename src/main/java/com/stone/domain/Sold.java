@@ -15,6 +15,7 @@ public class Sold {
     private Long uid;
     private Integer sellStatus;
 
+
     public Sold() {
     }
 

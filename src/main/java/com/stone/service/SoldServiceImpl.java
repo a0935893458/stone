@@ -28,4 +28,9 @@ public class SoldServiceImpl implements SoldService{
         return soldRepository.save(sold);
     }
 
+    @Override
+    public List<Sold> findAllByUid(long uid){
+        return soldRepository.findAllByUid(uid);
+    }
+
 }

@@ -1,16 +1,19 @@
 package com.stone.service;
 
+import com.stone.domain.Sell;
 import com.stone.domain.Stone;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 
 public interface StoneService {
     Stone saveStone(Stone stone);
 
+    public Stone postStone(Stone stone,Stone stone1);
 
+    public Stone saveSellToStone(Stone stone, Sell sell);
 
     Page<Stone> findAllByPage(Pageable pageable);
 

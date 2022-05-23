@@ -13,10 +13,6 @@ public class CartServiceImpl implements CartService{
 
     @Autowired
     private CartRepository cartRepository;
-
-    @Autowired
-    private SellRepository sellRepository;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -43,6 +39,16 @@ public class CartServiceImpl implements CartService{
         user.setTotalPrice(user.getTotalPrice() - sell.getPrice());
         userRepository.save(user);
         cartRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteCartById(long id){
+        cartRepository.deleteById(id);
+    }
+
+    @Override
+    public Cart findCartBySidAndUid(Long sid,Long uid){
+        return cartRepository.findCartBySidAndUid(sid,uid);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.stone.domain.Sell;
 import com.stone.domain.SellRepository;
 import com.stone.domain.Sold;
 import com.stone.domain.SoldRepository;
+import com.stone.service.SellServiceImpl;
 import com.stone.service.SoldServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,16 +21,19 @@ public class SoldController {
     private SoldServiceImpl soldService;
 
     @Autowired
-    private SellRepository sellRepository;
+    private SellServiceImpl sellService;
 
-    @Autowired
-    private SoldRepository soldRepository;
-
+    /**
+     * 查詢訂單資訊
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/finishCart/{id}/sold")
     public String sold(Model model, @PathVariable long id){
 
-        List<Sell> sells = sellRepository.findSellByUid(id);
-        List<Sold> sold = soldRepository.findAllByUid(id);
+        List<Sell> sells = sellService.findSellByUid(id);
+        List<Sold> sold = soldService.findAllByUid(id);
         model.addAttribute("sold", sold);
         model.addAttribute("sells", sells);
 

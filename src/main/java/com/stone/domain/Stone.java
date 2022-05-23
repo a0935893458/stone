@@ -3,9 +3,7 @@ package com.stone.domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Stone {
@@ -29,13 +27,6 @@ public class Stone {
     @JoinColumn(name = "stone_sell_id")
     private Sell sell;
 
-
-
-//    private String introduce;
-//    private String size;
-//    @Lob
-//    @Column(columnDefinition = "MEDIUMBLOB")
-//    private String image;
 
 
     public Stone() {
@@ -129,19 +120,5 @@ public class Stone {
         this.sell = sell;
     }
 
-    @Override
-    public String toString() {
-        return "Stone{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", buyDate=" + buyDate +
-                ", comeDate=" + comeDate +
-                ", liveStreaming='" + liveStreaming + '\'' +
-                ", origin='" + origin + '\'' +
-                ", chPrice=" + chPrice +
-                ", ntdPrice=" + ntdPrice +
-                ", status=" + status +
-                ", sell=" + sell +
-                '}';
-    }
+
 }

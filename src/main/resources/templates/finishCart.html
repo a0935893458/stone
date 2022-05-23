@@ -12,7 +12,7 @@
 <body>
 
 <div class="container">
-    <h2 class="page-header">149 TAO 會員訂單中心</h2>
+    <div style="text-align:center;"><h2 class="page-header">149 TAO 會員訂單中心</h2></div>
 
     <p class="text-right">
         <a href="./show.html" th:href="@{/show}" class="btn btn-primary">礦礦區</a>
@@ -21,7 +21,6 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr>
-            <!--            <th>號碼</th>-->
             <th>批數</th>
             <th>礦種</th>
             <th>產地</th>
@@ -32,17 +31,8 @@
         </tr>
         </thead>
         <tbody>
-        <!--
-        iterStat:
-            count: 计数 从1开始
-            index: 索引 从0开始
-            size:  列表总条数
-            even/odd: 偶数／奇数
-            first/last: 第一条／最后一条
 
-        -->
         <tr th:each="sell ,iterStat:${sells}">
-            <!--            <td th:text="${iterStat.count}">1</td>-->
             <td th:text="${sell.sellGroup}">第幾批</td>
             <td th:text="${sell.name}">礦種</td>
             <td th:text="${sell.origin}">產地</td>
@@ -58,10 +48,6 @@
                 <span th:case="4">已評論</span>
             </td>
 
-            <!--            <td>-->
-            <!--                <a herf="#" th:href="@{/show/{sid}/{uid}/cart (sid=${sell.id},uid=${session.user.id})}">加入購物車</a>-->
-
-            <!--            </td>-->
 
 
         </tr>
@@ -71,24 +57,14 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr>
-            <!--            <th>號碼</th>-->
             <th>批數</th>
             <th>總金額</th>
             <th>批數狀態</th>
         </tr>
         </thead>
         <tbody>
-        <!--
-        iterStat:
-            count: 计数 从1开始
-            index: 索引 从0开始
-            size:  列表总条数
-            even/odd: 偶数／奇数
-            first/last: 第一条／最后一条
 
-        -->
         <tr th:each="sold ,iterStat:${sold}">
-            <!--            <td th:text="${iterStat.count}">1</td>-->
             <td th:text="${sold.sellGroup}">第幾批</td>
             <td th:text="${sold.price}">總金額</td>
             <td th:switch="${sold.sellStatus}">

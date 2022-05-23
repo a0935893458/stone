@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SellRepository extends JpaRepository<Sell,Long> {
-    List<Sell> findByStatus(int status);
 
     Page<Sell> findSellByStatus(int status, Pageable pageable);
 
+    Page<Sell> findSellBySellStatusNotNull(Pageable pageable);
+
 
     List<Sell> findSellByUid(long id);
+
+    Page<Sell> findSellBySellStatusEquals(int sellStatus,Pageable pageable);
 }

@@ -12,13 +12,8 @@
 <body>
 
 <div class="container">
-    <h2 class="page-header">149 TAO 礦礦區</h2>
-    <!--    <div class="alert alert-danger alert-dismissable fade in"  th:unless="${#strings.isEmpty(message)}">-->
-    <!--        <a href="#" class="close" data-dismiss="alert">&times;</a>-->
-    <!--        <strong>Hi，</strong>-->
-    <!--        <span th:text="${message}">已在購物車喽！</span>-->
-    <!--    </div>-->
-    <!--    <p class="text-right"><a href="./myCart.html" th:href="@{/show/{id}/myCart(id=${session.user.id})}" class="btn btn-primary">查看購物車</a> </p>-->
+    <div style="text-align:center;"><h2 class="page-header" th:text="${session.user.username} + ' 確認訂單&寄件地址'"></h2></div>
+
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr>
@@ -30,26 +25,13 @@
         </tr>
         </thead>
         <tbody>
-        <!--
-        iterStat:
-            count: 计数 从1开始
-            index: 索引 从0开始
-            size:  列表总条数
-            even/odd: 偶数／奇数
-            first/last: 第一条／最后一条
 
-        -->
         <tr th:each="cart ,iterStat:${carts}" >
             <td th:text="${iterStat.count}">1</td>
             <td th:text="${cart.stoneName}">礦種</td>
             <td th:text="${cart.origin}">產地</td>
             <th scope="row" ><img alrt=""  th:src="${'data:image/jpeg;base64,' + {cart.stoneImage}}" style="width: 50px;height: 50px"> </th>
             <td th:text="${cart.price}">價格</td>
-
-            <!--            <td>-->
-            <!--                <a herf="#" th:href="@{/show/{sid}/{uid}/cart (sid=${sell.id},uid=${session.user.id})}">加入購物車</a>-->
-
-            <!--            </td>-->
 
 
         </tr>
@@ -122,9 +104,8 @@
 
     <div class="wrapper">
         <div class="modal-footer">
-            <span style="font-size:30px;">總金額：$<span style="font-size:30px;"
-                                                     th:text="${user.totalPrice}"></span></span>
-            <span style="font-size: 20px;"><a href="./finishCart.html" th:href="@{/finishCart/{uid}(uid=${user.id})}"
+            <span style="font-size:30px;">總金額：$<span style="font-size:30px;" th:text="${user.totalPrice}"></span></span>
+            <span style="font-size: 20px;" th:if="${user.totalPrice} != 0"><a href="./finishCart.html" th:href="@{/finishCart/{uid}(uid=${user.id})}"
                                               class="btn btn-danger">下訂單</a></span>
         </div>
     </div>

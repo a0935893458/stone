@@ -11,13 +11,12 @@
 <body>
 
     <div class="container">
-        <h2 class="page-header" >149 TAO 上架區</h2>
-        <a href="./listSell.html" th:href="@{/stones}" class="btn btn-primary">礦石表單</a>
-<!--        <p class="text-right"><a href="./editSellStone.html" th:href="@{/stones/editSellStone}" class="btn btn-primary">新增</a> </p>-->
+        <div style="text-align:center;"><h2 class="page-header" >149 TAO 上架區</h2></div>
+        <p class="text-right">
+            <a href="./listSell.html" th:href="@{/stones}" class="btn btn-primary">礦石表單</a></p>
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
-<!--                <th>號碼</th>-->
                 <th>礦礦編號</th>
                 <th>礦種</th>
                 <th>產地</th>
@@ -30,18 +29,8 @@
             </tr>
             </thead>
             <tbody>
-            <!--
-            iterStat:
-                count: 计数 从1开始
-                index: 索引 从0开始
-                size:  列表总条数
-                even/odd: 偶数／奇数
-                first/last: 第一条／最后一条
 
-            -->
             <tr th:each="sell,iterStat:${page.content}" >
-<!--                <td th:text="${iterStat.count}">1</td>-->
-                <!--<td ><a href="#" th:text="${book.name}" th:href="@{/books/{id}(id=${book.id})}">书名</a></td>-->
                 <td th:text="${sell.stoneId}"礦礦編號></td>
                 <td ><a href="#" th:text="${sell.name}" th:href="@{'/listSell/' + ${sell.id}}">礦種</a></td>
                 <td th:text="${sell.origin}" >產地</td>
@@ -64,8 +53,7 @@
                 </td>
                 <td>
 
-                    <a herf="#" th:href="@{/listSell/{id}/editSellStone(id=${sell.id})}">更新</a>
-<!--                    <a herf="#" th:href="@{/stones/{id}/delete(id=${stone.id})}">刪除</a>-->
+                    <a herf="#" th:href="@{/stones/listSell/{id}/editSellStone(id=${sell.id})}">更新</a>
 
                 </td>
 

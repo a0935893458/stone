@@ -2,9 +2,7 @@ package com.stone.web;
 
 import com.stone.domain.Sell;
 import com.stone.domain.SellRepository;
-import com.stone.domain.Stone;
 import com.stone.service.SellServiceImpl;
-import com.stone.service.StoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,30 +15,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class SellController {
 
     @Autowired
-    private SellRepository sellRepository;
-
-    @Autowired
-    private StoneService stoneService;
-
-    @Autowired
     private SellServiceImpl sellservice;
 
     /**
-     * 後臺編輯區
+     * 後臺上架區(分頁)
      * @param pageable
      * @param model
      * @return
      */
-    @GetMapping("/listSell")
+    @GetMapping("/stones/listSell")
     public String listSell(@PageableDefault(sort = {"id"},direction = Sort.Direction.ASC) Pageable pageable,
                            Model model){
         Page<Sell> page1 = sellservice.findAllByPage(pageable);
@@ -49,17 +39,41 @@ public class SellController {
         return "listSell";
     }
 
-    @GetMapping("/listSold")
+    /**
+     * 賣家管理出貨區(分頁)
+     * @param pageable
+     * @param model
+     * @return
+     */
+    @GetMapping("/stones/listSold")
     public String listSold(@PageableDefault(sort = {"id"},direction = Sort.Direction.ASC) Pageable pageable,
                            Model model){
-        Page<Sell> page1 = sellservice.findAllByPage(pageable);
+        Page<Sell> page1 = sellservice.findSellBySellStatusNotNull(pageable);
         model.addAttribute("page",page1);
+        model.addAttribute("pagestatus",0);
 
         return "listSold";
     }
 
     /**
-     * 礦友挑選區
+     * 賣家寄件區(分頁)
+     * @param pageable
+     * @param model
+     * @return
+     */
+    @GetMapping("/stones/listSold/Send")
+    public String listSoldSend(@PageableDefault(sort = {"id"},direction = Sort.Direction.ASC) Pageable pageable,
+                           Model model){
+
+        Page<Sell> page1 = sellservice.findSellBySellStatusEquals(1,pageable);
+        model.addAttribute("page",page1);
+        model.addAttribute("pagestatus",1);
+
+        return "listSold";
+    }
+
+    /**
+     * 礦友挑選區,只挑選狀態為上架中的礦石(3)
      * @param pageable
      * @param model
      * @return
@@ -69,16 +83,16 @@ public class SellController {
             direction = Sort.Direction.ASC) Pageable pageable,
                            Model model, HttpSession session){
 
-        Page<Sell> page1 = sellRepository.findSellByStatus(3,pageable);
+        Page<Sell> page1 = sellservice.findSellByStatus(3,pageable);
         model.addAttribute("page",page1);
 
         return "show";
     }
 
     /**
-     * 新增sell上架的礦礦
+     * 編輯上架的礦礦
      */
-    @GetMapping("/listSell/{id}/editSellStone")
+    @GetMapping("/stones/listSell/{id}/editSellStone")
     public String editSellStone(@PathVariable long id, Model model){
         Sell sell = sellservice.findOne(id);
 
@@ -87,14 +101,9 @@ public class SellController {
         return "editSellStone";
     }
 
-    @GetMapping("/listSell/inputSell")
-    public String inputPage(Model model){
-        model.addAttribute("sell",new Sell());
-        return "listSell";
-    }
 
     /**
-     * 存取上架的照片,介紹,大小
+     * 儲存上架的照片,介紹,大小
      * @param sell
      * @param file
      * @return
@@ -103,7 +112,7 @@ public class SellController {
     public String post(@RequestParam("file") MultipartFile file, Sell sell){
         sellservice.saveSell(sell,file);
 
-        return "redirect:/listSell";
+        return "redirect:/stones/listSell";
     }
 
     /**
@@ -116,7 +125,7 @@ public class SellController {
         Sell sell1 = sellservice.findOne(sell.getId());
         sellservice.saveSellStatus(sell,sell1);
 
-        return "redirect:/listSold";
+        return "redirect:/stones/listSold";
     }
 
 }

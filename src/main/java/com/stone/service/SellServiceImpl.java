@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SellServiceImpl implements SellService{
@@ -45,13 +46,7 @@ public class SellServiceImpl implements SellService{
             e.printStackTrace();
         }
         Stone stone=stoneService.findOne(sell.getId()-1);
-        stone.setName(sell.getName());
-        stone.setOrigin(sell.getOrigin());
-        stone.setNtdPrice(sell.getPrice());
-        stone.setChPrice(sell.getPrice()/6);
-        stone.setStatus(sell.getStatus());
-        stone.setStoneId(sell.getStoneId());
-        stoneService.saveStone(stone);
+        stoneService.saveSellToStone(stone,sell);
 
 
         return sellRepository.save(sell);
@@ -80,7 +75,6 @@ public class SellServiceImpl implements SellService{
 
 
     @Override
-    @Transactional
     public Sell findOne(Long id) {
         return sellRepository.findById(id).get();
     }
@@ -90,8 +84,9 @@ public class SellServiceImpl implements SellService{
         return  sellRepository.save(sell);
     }
 
-    public Sell saveUidToSell(Sell sell, Long uid, Long sellGroup, User user){
-        sell.setUid(uid);
+    @Override
+    public Sell saveUidToSell(Sell sell, Long sellGroup, User user){
+        sell.setUid(user.getId());
         sell.setSellStatus(0);
         sell.setSellTime(new Date());
         sell.setSellGroup(sellGroup);
@@ -101,5 +96,24 @@ public class SellServiceImpl implements SellService{
         sell.setSend(user.getSend());
 
         return sellRepository.save(sell);
+    }
+
+    @Override
+    public Page<Sell> findSellBySellStatusNotNull(Pageable pageable) {
+        return sellRepository.findSellBySellStatusNotNull(pageable);
+    }
+
+    @Override
+    public Page<Sell> findSellBySellStatusEquals(int sellStatus,Pageable pageable){
+        return sellRepository.findSellBySellStatusEquals(sellStatus,pageable);
+    }
+    @Override
+    public Page<Sell> findSellByStatus(int status, Pageable pageable){
+        return sellRepository.findSellByStatus(status,pageable);
+    }
+
+    @Override
+    public List<Sell> findSellByUid(long id){
+        return sellRepository.findSellByUid(id);
     }
 }
