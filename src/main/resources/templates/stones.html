@@ -31,7 +31,7 @@
         <tr>
             <th>礦礦編號</th>
             <th>採購日</th>
-            <th>直播</th>
+            <th>來源</th>
             <th>品種</th>
             <th>產地</th>
             <th>人民幣價格</th>
@@ -46,8 +46,8 @@
         <tr th:each="stone,iterStat:${page.content}">
             <td th:text="${stone.stoneId}">礦礦編號</td>
             <td th:text="${#dates.format(stone.buyDate,'yyyy-MM-dd')}">採購日</td>
-            <td th:text="${stone.liveStreaming}">直播</td>
-            <td><a href="#" th:text="${stone.name}" th:href="@{'/stones/' + ${stone.id}}">品種</a></td>
+            <td th:text="${stone.source}">來源</td>
+            <td th:text="${stone.name}" >品種</td>
             <td th:text="${stone.origin}">產地</td>
             <td th:text="${stone.chPrice}">人民幣價格</td>
             <td th:text="${stone.chPrice * 6}">台幣價格</td>
@@ -62,6 +62,7 @@
                 <span th:case="6">抽獎</span>
                 <span th:case="7">售友人</span>
                 <span th:case="8">自留</span>
+                <span th:case="9">付款中</span>
                 <span th:case="*">狀態</span>
             </td>
             <td>
@@ -96,9 +97,9 @@
                                         <label>採購日</label>
                                         <input type="text" th:value="*{#dates.format(stone.buyDate,'yyyy-MM-dd')}"
                                                class="form-control" name="buyDate">
-                                        <label>直播</label>
-                                        <input type="text" th:value="*{stone.liveStreaming}" class="form-control"
-                                               name="liveStreaming">
+                                        <label>來源</label>
+                                        <input type="text" th:value="*{stone.source}" class="form-control"
+                                               name="source">
                                         <label>礦種</label>
                                         <input type="text" th:value="*{stone.name}" class="form-control" name="name">
                                         <label>產地</label>
@@ -122,6 +123,7 @@
                                             <option value="6" th:selected="(*{status} == '6')">抽獎</option>
                                             <option value="7" th:selected="(*{status} == '7')">售友人</option>
                                             <option value="8" th:selected="(*{status} == '8')">自留</option>
+                                            <option value="8" th:selected="(*{status} == '9')">付款中</option>
                                             <option value="*" th:selected="(*{status} == '*')">狀態</option>
                                         </select>
                                         <br>

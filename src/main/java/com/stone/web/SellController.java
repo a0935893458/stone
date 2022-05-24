@@ -1,7 +1,6 @@
 package com.stone.web;
 
 import com.stone.domain.Sell;
-import com.stone.domain.SellRepository;
 import com.stone.service.SellServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -87,6 +86,21 @@ public class SellController {
         model.addAttribute("page",page1);
 
         return "show";
+    }
+
+    /**
+     * 商品詳情
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/listSell/{id}")
+    public String sellStoneDetail(@PathVariable long id,Model model){
+        Sell sell = sellservice.findOne(id);
+
+        model.addAttribute("sell",sell);
+
+        return "stone";
     }
 
     /**

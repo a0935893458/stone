@@ -24,8 +24,8 @@
                    <input type="text" name="buyDate" class="form-control" id="buyDateId" th:value="${#dates.format(stone.buyDate,'yyyy-MM-dd')}">
                </div>
                <div class="form-group">
-                   <label for="liveStreamingId" class="col-form-label">直播:</label>
-                   <input type="text" class="form-control" name="liveStreaming" id="liveStreamingId" th:value="${stone.liveStreaming}" >
+                   <label for="sourceId" class="col-form-label">來源:</label>
+                   <input type="text" class="form-control" name="source" id="sourceId" th:value="${stone.source}" >
                </div>
                <div class="form-group">
                    <label for="nameId" class="col-form-label">品種:</label>
@@ -56,6 +56,7 @@
                        <option value="6" th:selected="(*{status} == '6')">抽獎</option>
                        <option value="7" th:selected="(*{status} == '7')">售友人</option>
                        <option value="8" th:selected="(*{status} == '8')">自留</option>
+                       <option value="8" th:selected="(*{status} == '9')">付款中</option>
                    </select>
                </div>
                <p class="text-center">

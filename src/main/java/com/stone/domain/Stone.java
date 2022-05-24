@@ -17,10 +17,22 @@ public class Stone {
     private Date buyDate; //買的時間
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date comeDate; //來的時間
-    private String liveStreaming; //直播
+    private String source;//來源
     private String origin; //來源
     private Integer chPrice; //人民幣
     private Integer ntdPrice; //台幣
+    /**
+     * 0 = 採購已付
+     * 1 = 採購未付
+     * 2 = 已到貨
+     * 3 = 貼文上架
+     * 4 = 已售出
+     * 5 = 扭蛋
+     * 6 = 抽獎
+     * 7 = 售友人
+     * 8 = 自留
+     * 9 = 付款中
+     */
     private Integer status;  //狀態
 
     @OneToOne(cascade = {CascadeType.ALL},optional = false,fetch = FetchType.EAGER)
@@ -72,14 +84,6 @@ public class Stone {
         this.comeDate = comeDate;
     }
 
-    public String getLiveStreaming() {
-        return liveStreaming;
-    }
-
-    public void setLiveStreaming(String liveStreaming) {
-        this.liveStreaming = liveStreaming;
-    }
-
     public String getOrigin() {
         return origin;
     }
@@ -120,5 +124,11 @@ public class Stone {
         this.sell = sell;
     }
 
+    public String getSource() {
+        return source;
+    }
 
+    public void setSource(String source) {
+        this.source = source;
+    }
 }

@@ -13,6 +13,12 @@ public class Sold {
     private int price;
     private Long sellGroup;
     private Long uid;
+    /**
+     * 0 = 付款中
+     * 1 = 已付款
+     * 2 = 已出貨
+     * 3 = 已評論
+     */
     private Integer sellStatus;
 
 

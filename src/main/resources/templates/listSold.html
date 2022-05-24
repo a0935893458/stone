@@ -39,7 +39,7 @@
             <tbody>
             <tr th:each="sell,iterStat:${page.content}" >
                 <td th:text="${sell.stoneId}"礦礦編號></td>
-                <td ><a href="#" th:text="${sell.name}" th:href="@{'/listSell/' + ${sell.id}}">礦種</a></td>
+                <td th:text="${sell.name}">礦種</td>
                 <td th:text="${sell.size}">大小</td>
                 <td th:text="${sell.price}">價格</td>
                 <th scope="row" ><img alrt=""  th:src="${'data:image/jpeg;base64,' + {sell.image}}" style="width: 50px;height: 50px"> </th>
@@ -61,8 +61,7 @@
                     <span th:case="0">付款中</span>
                     <span th:case="1">已付款</span>
                     <span th:case="2">已出貨</span>
-                    <span th:case="3">已收件</span>
-                    <span th:case="4">已評論</span>
+                    <span th:case="3">已評論</span>
                 </td>
 
                 <td>

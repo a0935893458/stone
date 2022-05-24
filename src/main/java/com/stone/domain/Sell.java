@@ -20,7 +20,13 @@ public class Sell {
     private String size;
     private Integer price;
     private Long uid;
-    private Integer sellStatus;
+    /**
+     * 0 = 付款中
+     * 1 = 已付款
+     * 2 = 已出貨
+     * 3 = 已評論
+     */
+    private Integer sellStatus; // 販售狀態
     private Long sellGroup; //第幾批
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date sellTime;
